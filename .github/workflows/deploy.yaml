@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Composer Dependencies
-        working-directory: ././app
+        working-directory: ./app
         run: composer install --prefer-dist
       - name: Run Tests
         working-directory: ./app
