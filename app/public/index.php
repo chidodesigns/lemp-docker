@@ -1,14 +1,20 @@
 <?php
 
 use App\Repository\TranslationRepository;
+use Symfony\Component\Cache\Adapter\RedisAdapter;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+$client = RedisAdapter::createConnection(
+    "redis://{$_ENV['REDIS_HOST']}:{$_ENV['REDIS_PORT']}"
+);
+
+$cacheAdapter = new \Symfony\Component\Cache\Adapter\RedisAdapter($client);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $translationRepository = new TranslationRepository();
-
-    $translation = $translationRepository->findForLanguage($_POST['language'], $_POST['phrase']) ?: 'Translation not found...';
+    $translationCache = new \App\Cache\TranslationCache($cacheAdapter, new TranslationRepository());
+    $translation = $translationCache->findForLanguage($_POST['language'], $_POST['phrase']) ?: 'Translation not found...';
 
 } else {
 
