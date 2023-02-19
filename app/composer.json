@@ -25,6 +25,6 @@
         "phpunit/phpunit": "^9.5"
     },
     "scripts": {
-        "run-phpunit": "vendor/bin/phpunit"
+        "phpunit": "vendor/bin/phpunit"
     }
 }
