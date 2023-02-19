@@ -1,5 +1,7 @@
 <?php
 
+xdebug_info();
+
 use App\Repository\TranslationRepository;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 
